@@ -15,3 +15,10 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- task: AzureWebApp@1
+  inputs:
+    appType: webApp
+    azureSubscription: 'AzureResourceManagerServiceConnection'
+    appName: 'PipelinesDotnetCoreSample1'
+    package: $(System.ArtifactsDirectory)/**/*.zip
