@@ -23,12 +23,13 @@ steps:
 #    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
 #    artifactName: drop
 
-- task: PublishBuildArtifacts@1
+#- task: PublishBuildArtifacts@1
 
 - task: AzureWebApp@1
   inputs:
     appType: webApp
     azureSubscription: 'AzureResourceManagerServiceConnection'
     appName: 'PipelinesDotnetCoreSample1'
-    package: $(System.ArtifactsDirectory)/**/*.zip
+    package:  /home/vsts/work/1/s/**/*.zip
+    #package: $(System.ArtifactsDirectory)/**/*.zip
     #package: $(Build.ArtifactStagingDirectory)/**/*.zip
