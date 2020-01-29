@@ -25,11 +25,23 @@ steps:
 
 #- task: PublishBuildArtifacts@1
 
-- task: AzureWebApp@1
-  inputs:
-    appType: webApp
-    azureSubscription: 'AzureResourceManagerServiceConnection'
-    appName: 'PipelinesDotnetCoreSample1'
-    package:  /home/vsts/work/1/s/**/*.zip
+#- task: AzureWebApp@1
+  #inputs:
+  #  appType: webApp
+  #  azureSubscription: 'AzureResourceManagerServiceConnection'
+  #  appName: 'PipelinesDotnetCoreSample1'
+  #  package:  /home/vsts/work/1/s/**/*.zip
     #package: $(System.ArtifactsDirectory)/**/*.zip
     #package: $(Build.ArtifactStagingDirectory)/**/*.zip
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)"'
+    zipAfterPublish: True
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
